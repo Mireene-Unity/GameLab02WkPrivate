@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class Gate : Object_Interaction
+public class SleepBed : Object_Interaction
 {
     public override bool Condition()
     {
@@ -8,6 +9,7 @@ public class Gate : Object_Interaction
     }
     public override void Interaction()
     {
-        Debug.Log("Gate");
+        Debug.Log("Sleep");
+        GameManager.Instance.SendSignal();
     }
 }

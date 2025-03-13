@@ -1,16 +1,35 @@
 using UnityEngine;
 
-public class apiary : MonoBehaviour
+public class Apiary : Object_Interaction
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    bool isTodayWorking = false;
 
-    // Update is called once per frame
-    void Update()
+    public override bool Condition()
     {
-        
+        if (isTodayWorking)
+        {
+            AnimalMessage();
+            return false;
+        }
+        else return true;
+    }
+    public override void Interaction()
+    {
+        Debug.Log("Apiay");
+        isTodayWorking = true;
+    }
+    void GiveMoney()
+    {
+        if (isTodayWorking)
+        {
+
+        }
+    }
+    /// <summary>
+    /// 상호작용 이후 추가 작용시 발생할 이벤트
+    /// </summary>
+    void AnimalMessage()
+    {
+
     }
 }

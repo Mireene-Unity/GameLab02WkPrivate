@@ -1,7 +1,4 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class Object_Interaction : MonoBehaviour
 {
@@ -13,14 +10,40 @@ public class Object_Interaction : MonoBehaviour
         player_Find = FindAnyObjectByType<Player_Find>();
         player = player_Find.gameObject;
     }
+    /// <summary>
+    /// 상호작용을 위한 마지막 조건 함수 (true)일때 함수 작동
+    /// </summary>
+    /// <returns></returns>
+    public virtual bool Condition()
+    {
+        return true;
+    }
+    /// <summary>
+    /// 상호작용 행동하는 버추얼 함수
+    /// </summary>
+    public virtual void Interaction()
+    {
+
+    }
     void Update()
     {
+        UpdateFunction();
+    }
+    void UpdateFunction()
+    {
         if (player == null) return;
-        if (Input.GetMouseButton(1) == false) return;
-        if (IsContactPlayer())
-        if (IsContactMouse())
+        if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Player Contact Object");
+            Debug.Log("IsContactMouse");
+            if (IsContactPlayer())
+                Debug.Log("IsContactPlayer");
+            if (IsContactMouse())
+                {
+                    if (Condition())
+                    {
+                        Interaction();
+                    }
+                }
         }
     }
     bool IsContactPlayer()
