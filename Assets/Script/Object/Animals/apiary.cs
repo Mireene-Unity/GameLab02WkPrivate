@@ -1,35 +1,30 @@
+using System;
 using UnityEngine;
 
-public class Apiary : Object_Interaction
+public class Apiary : Animal_Interaction
 {
-    bool isTodayWorking = false;
+    protected override void AnimalMessage()
+    {
 
-    public override bool Condition()
-    {
-        if (isTodayWorking)
-        {
-            AnimalMessage();
-            return false;
-        }
-        else return true;
     }
-    public override void Interaction()
+    protected override void SceondStart()
     {
-        Debug.Log("Apiay");
+        SleepingBed sleep = FindAnyObjectByType<SleepingBed>();
+        if (sleep == null) { }
+        sleep.Sleeping += Apiary.DayReset; // Action에 DayReset 구독
+        sleep.Sleep(); // SleepingBed에서 Sleep 호출
+    }
+    protected override void Interaction()
+    {
         isTodayWorking = true;
+        Debug.Log("양봉통");
     }
-    void GiveMoney()
+    public static void DayReset() // public으로 유지
     {
-        if (isTodayWorking)
-        {
-
-        }
-    }
-    /// <summary>
-    /// 상호작용 이후 추가 작용시 발생할 이벤트
-    /// </summary>
-    void AnimalMessage()
-    {
-
+        isTodayWorking = false; // static 필드 조작
+        Debug.Log("Apiary DayReset");
     }
 }
+
+
+

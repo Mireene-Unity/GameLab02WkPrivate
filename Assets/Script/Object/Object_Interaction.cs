@@ -9,19 +9,21 @@ public class Object_Interaction : MonoBehaviour
     {
         player_Find = FindAnyObjectByType<Player_Find>();
         player = player_Find.gameObject;
+        SceondStart();
     }
+    protected virtual void SceondStart(){ }
     /// <summary>
     /// 상호작용을 위한 마지막 조건 함수 (true)일때 함수 작동
     /// </summary>
     /// <returns></returns>
-    public virtual bool Condition()
+    protected virtual bool Condition()
     {
         return true;
     }
     /// <summary>
     /// 상호작용 행동하는 버추얼 함수
     /// </summary>
-    public virtual void Interaction()
+    protected virtual void Interaction()
     {
 
     }
@@ -34,16 +36,17 @@ public class Object_Interaction : MonoBehaviour
         if (player == null) return;
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("IsContactMouse");
             if (IsContactPlayer())
-                Debug.Log("IsContactPlayer");
-            if (IsContactMouse())
+            {
+                //Debug.Log("IsContactPlayer");
+                if (IsContactMouse())
                 {
                     if (Condition())
                     {
                         Interaction();
                     }
                 }
+            }
         }
     }
     bool IsContactPlayer()
