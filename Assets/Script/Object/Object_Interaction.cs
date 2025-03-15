@@ -3,8 +3,8 @@ using UnityEngine;
 public class Object_Interaction : MonoBehaviour
 {
     Player_Find player_Find;
-    GameObject player;
-    Vector3 playerPosition;
+    protected GameObject player;
+    protected Vector3 playerPosition;
     void Start()
     {
         player_Find = FindAnyObjectByType<Player_Find>();

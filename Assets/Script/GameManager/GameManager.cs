@@ -1,9 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System;
-using UnityEditor.PackageManager;
-using Unity.VisualScripting;
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }

@@ -1,46 +1,41 @@
 using UnityEngine;
-public class PlayerTransform : MonoBehaviour
+
+public class PlayerMovement : MonoBehaviour
 {
-    float height;
-    float width;
-    float speed = 2.0f;
+    private float width;
+    private float height;
+    public float speed = 5f;
     int diraction;
-    Vector3 lastPosition;
+
+    private ObstacleChecker obstacleChecker;
+
+    void Start()
+    {
+        obstacleChecker = GetComponent<ObstacleChecker>();
+        if (obstacleChecker == null)
+        {
+            Debug.LogError("ObstacleChecker ");
+        }
+    }
 
     void Update()
     {
         if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) return;
+
         if (width == 0) height = Input.GetAxisRaw("Vertical");
         if (height == 0) width = Input.GetAxisRaw("Horizontal");
-        lastPosition = transform.position;
-        transform.Translate(new Vector3(width, height, 0) * speed * Time.deltaTime);
-    }
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Obstacle"))
+
+        Vector2 movement = new Vector2(width, height) * speed * Time.deltaTime;
+        Vector2 newPosition = (Vector2)transform.position + movement;
+
+        if (obstacleChecker != null && obstacleChecker.CanMoveTo(newPosition))
         {
-            Debug.Log("Obstacle");
-            transform.position = lastPosition;
+            transform.Translate(new Vector3(movement.x, movement.y, 0f)); // Vector2 -> Vector3 º¯È¯
         }
-    }
-    public int Diraction()
-    {
-        if (width > 0)
+        else
         {
-            diraction = 1;
+            width = 0;
+            height = 0;
         }
-        if (width < 0)
-        {
-            diraction = 2;
-        }
-        if (height > 0)
-        {
-            diraction = 3;
-        }
-        if (height < 0)
-        {
-            diraction = 4;
-        }
-        return diraction;
     }
 }
